@@ -228,9 +228,8 @@ deleteRecord() {
   fi
 
   result="$(_H1="$_H1" _H2="$_H2" _get "$DNSServices_API/service/$rootZoneServiceID/dns/$rootZoneDomainID")"
-  #recordInfo="$(echo "$result" | sed -e 's/:{/:{\n/g' -e 's/},/\n},\n/g' | grep "${txtvalue}")"
-  #recordID="$(echo "$recordInfo" | sed -e 's/:{/:{\n/g' -e 's/},/\n},\n/g' | grep "${txtvalue}" | sed -E 's,.*(zones)(.*),\1\2,g' | sed -E 's,^(.*"id":")([^"]*)"(.*)$,\2,g')"
-  recordID="$(printf "%s\n" "$result" | tr '}' '\n' | grep -- "$txtvalue" | tr ',' '\n' | grep '"id"' | cut -d'"' -f4)"
+  # Updated recordID parsing of JSON as it could cause non-deletes to happen. Fix found by Nicolai/DNS.Services
+  recordID="$(printf '%s\n' "$result" | tr '{' '\n' | grep -F "\"name\":\"$fulldomain\"" | grep -F "\"type\":\"TXT\"" |grep -F "$txtvalue" | sed -n 's/.*"id":\([0-9][0-9]*\).*/\1/p' | head -n 1)"
   _debug2 _recordID "recordID used for deletion of record: $recordID"
 
   if [ -z "$recordID" ]; then
