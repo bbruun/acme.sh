@@ -123,9 +123,6 @@ _get_root() {
   domain="$1"
   _debug2 _get_root "Get the root domain of ${domain} for DNS API"
 
-  # Setup _get() and _post() headers
-  #_setup_headers
-
   result=$(_H1="$_H1" _H2="$_H2" _get "$DNSServices_API/dns")
   result2="$(printf "%s\n" "$result" | tr '[' '\n' | grep '"name"')"
   result3="$(printf "%s\n" "$result2" | tr '}' '\n' | grep '"name"' | sed "s,^\,,,g" | sed "s,$,},g")"
