@@ -666,8 +666,15 @@ _hex_dump() {
     xxd -ps -c 20 -i | sed "s/ 0x/ /g" | tr -d ",\n" | tr -s " "
   else
     _debug3 "using _ascii_hex"
-    str=$(cat)
-    _ascii_hex "$str"
+    #line by line: the cut -c in _ascii_hex works per line, and a $(cat)
+    #capture would drop the trailing newlines (illumos without od in PATH)
+    while IFS= read -r _hd_line; do
+      _ascii_hex "$_hd_line"
+      printf " 0a"
+    done
+    if [ -n "$_hd_line" ]; then
+      _ascii_hex "$_hd_line"
+    fi
   fi
 }
 
@@ -907,7 +914,12 @@ _json_encode() {
   _j_str="$(sed 's/"/\\"/g' | sed "s/\r/\\r/g")"
   _debug3 "_json_encode"
   _debug3 "_j_str" "$_j_str"
-  echo "$_j_str" | _hex_dump | _lower_case | sed 's/0a/5c 6e/g' | tr -d ' ' | _h2b | tr -d "\r\n"
+  #printf, not echo: dash's echo interprets backslash escapes and would
+  #collapse the \\ sequences (e.g. Telegram MarkdownV2 escapes, issue 7212)
+  _j_hex="$(printf "%s\n" "$_j_str" | _hex_dump | _lower_case)"
+  #the hex line must end with a newline: Solaris sed drops an unterminated
+  #last line, which emptied the whole output
+  printf "%s\n" "$_j_hex" | sed 's/0a/5c 6e/g' | tr -d ' ' | _h2b | tr -d "\r\n"
 }
 
 #from: http:\/\/  to http://
@@ -915,7 +927,7 @@ _json_decode() {
   _j_str="$(sed 's#\\/#/#g')"
   _debug3 "_json_decode"
   _debug3 "_j_str" "$_j_str"
-  echo "$_j_str"
+  printf "%s\n" "$_j_str"
 }
 
 #extract the authorization URLs from an order response on stdin, as a
