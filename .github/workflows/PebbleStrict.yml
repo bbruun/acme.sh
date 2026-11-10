@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   PebbleStrict:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       TestingDomain: example.com
       TestingAltDomains: www.example.com
@@ -54,7 +54,7 @@ jobs:
       run: cd ../acmetest && ./letest.sh
 
   PebbleStrict_IPCert:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       TestingDomain: 1.23.45.67
       TEST_ACME_Server: https://localhost:14000/dir

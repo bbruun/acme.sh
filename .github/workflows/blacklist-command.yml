@@ -23,7 +23,7 @@ jobs:
   blacklist:
     # Upstream only: forks have no <fork>.wiki repository to push to.
     if: github.repository == 'acmesh-official/acme.sh' && startsWith(github.event.issue.title, 'blacklist:')
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Check authorization
         id: auth

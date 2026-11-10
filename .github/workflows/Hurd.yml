@@ -30,7 +30,7 @@ jobs:
            CA: ""
            CA_EMAIL: ""
            TEST_PREFERRED_CHAIN: (STAGING)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       TEST_LOCAL: 1
       TEST_ACME_Server: ${{ matrix.TEST_ACME_Server }}

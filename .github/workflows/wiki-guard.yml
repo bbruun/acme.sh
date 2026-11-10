@@ -40,7 +40,7 @@ jobs:
     # Forks have no <fork>.wiki repository, so the checkout below would
     # fail there -- run only in the upstream repository.
     if: github.repository == 'acmesh-official/acme.sh'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout wiki repository
         uses: actions/checkout@v7

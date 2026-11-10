@@ -12,7 +12,7 @@ on:
 
 jobs:
   welcome:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     if: github.actor != 'neilpang'
     steps:
       - uses: actions/github-script@v9

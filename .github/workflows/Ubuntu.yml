@@ -56,7 +56,7 @@ jobs:
            TEST_IPCERT: 1
            TestingDomain: "172.17.0.1"
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       TEST_LOCAL: 1
       TEST_ACME_Server: ${{ matrix.TEST_ACME_Server }}
