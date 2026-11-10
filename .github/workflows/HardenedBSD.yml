@@ -36,7 +36,7 @@ jobs:
            CA_EMAIL: ""
            TEST_PREFERRED_CHAIN: (STAGING)
            ACME_USE_WGET: 1
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       TEST_LOCAL: 1
       TEST_ACME_Server: ${{ matrix.TEST_ACME_Server }}

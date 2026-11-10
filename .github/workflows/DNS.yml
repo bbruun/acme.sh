@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   CheckToken:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       hasToken: ${{ steps.step_one.outputs.hasToken }}
     steps:
@@ -34,7 +34,7 @@ jobs:
         run: echo ${{ steps.step_one.outputs.hasToken }}
 
   Fail:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: CheckToken
     if: "contains(needs.CheckToken.outputs.hasToken, 'false')"
     steps:
@@ -46,7 +46,7 @@ jobs:
         fi
 
   Docker:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: CheckToken
     if: "contains(needs.CheckToken.outputs.hasToken, 'true')"
     env:
@@ -212,7 +212,7 @@ jobs:
 
 
   FreeBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: Windows
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -269,7 +269,7 @@ jobs:
 
 
   GhostBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: FreeBSD
     # GhostBSD VM frequently flakes on boot/ssh; don't let it fail the whole run
     continue-on-error: true
@@ -328,7 +328,7 @@ jobs:
 
 
   OpenBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: GhostBSD
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -385,7 +385,7 @@ jobs:
 
 
   NetBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: OpenBSD
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -443,7 +443,7 @@ jobs:
 
 
   DragonFlyBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: NetBSD
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -505,7 +505,7 @@ jobs:
 
 
   MidnightBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: DragonFlyBSD
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -562,7 +562,7 @@ jobs:
 
 
   Solaris:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: MidnightBSD
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -622,7 +622,7 @@ jobs:
 
 
   Omnios:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: Solaris
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -679,7 +679,7 @@ jobs:
 
 
   OpenIndiana:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: Omnios
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -736,7 +736,7 @@ jobs:
 
         
   Tribblix:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: OpenIndiana
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -793,7 +793,7 @@ jobs:
 
 
   Haiku:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: Tribblix
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -854,7 +854,7 @@ jobs:
 
 
   Hurd:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: Haiku
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -915,7 +915,7 @@ jobs:
 
 
   OpenEuler:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: Hurd
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -974,7 +974,7 @@ jobs:
 
 
   HardenedBSD:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: OpenEuler
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}
@@ -1031,7 +1031,7 @@ jobs:
 
 
   OPNsense:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: HardenedBSD
     env:
       TEST_DNS : ${{ secrets.TEST_DNS }}

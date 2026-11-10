@@ -41,7 +41,7 @@ jobs:
          #  CA: "ZeroSSL RSA DV SSL CA 2"
          #  CA_EMAIL: "githubtest@acme.sh"
          #  TEST_PREFERRED_CHAIN: ""
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     # GhostBSD VM frequently flakes on boot/ssh; don't let it fail the whole run
     continue-on-error: true
     env:

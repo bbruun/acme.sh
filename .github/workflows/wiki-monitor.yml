@@ -5,7 +5,7 @@ on:
 
 jobs:
   notify:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     if: github.actor != 'neilpang'
     steps:
       - name: Checkout wiki repository

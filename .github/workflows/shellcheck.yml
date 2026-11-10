@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   ShellCheck:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
     - name: Install Shellcheck
@@ -29,7 +29,7 @@ jobs:
       run: shellcheck -V  && shellcheck -e SC2181 -e SC2089 **/*.sh && echo "shellcheck OK"
 
   shfmt:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
     - name: Install shfmt

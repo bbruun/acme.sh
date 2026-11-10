@@ -27,7 +27,7 @@ env:
 
 jobs:
   CheckToken:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       hasToken: ${{ steps.step_one.outputs.hasToken }}
     env: 
@@ -45,7 +45,7 @@ jobs:
         run: echo ${{ steps.step_one.outputs.hasToken }}
         
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: CheckToken
     if: "github.event_name != 'schedule' && contains(needs.CheckToken.outputs.hasToken, 'true')"
     permissions:
@@ -109,7 +109,7 @@ jobs:
   rebuild:
     # weekly: dispatch this workflow on the latest release tag so the tag
     # rebuilds its own image from its own commit and its own workflow file
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     if: github.event_name == 'schedule'
     permissions:
       contents: read

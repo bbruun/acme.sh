@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   Nginx:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     env:
       TestingDomain: example.com
       TEST_ACME_Server: https://localhost:14000/dir
